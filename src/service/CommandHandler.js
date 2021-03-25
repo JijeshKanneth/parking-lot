@@ -5,7 +5,7 @@ var Car = require('../domain-object/Car.js');
 class CommandHandler{
 	constructor (args) {
         if(args){
-            this.processArgs(args);
+            this.processCliArgs(args);
         }
     }
     
@@ -34,26 +34,30 @@ class CommandHandler{
                     var regNumber = params.pop();
                     const hours = params.pop();
                     if(regNumber && hours){
-                        var status = mgr.leaveCar(regNumber);
+                        var status = mgr.leaveCar(regNumber.trim());
                         if(status && status.car){
                             var charge = mgr.calculateParkingCharge(hours);
                             console.log("Registration number "+ status.car.number+" with Slot Number "+status.slot+" is free with Charge "+charge);
                         }else{
-                            console.log("Invalid parking info!");
+                            console.log("Registration number "+regNumber+" not found!");
                         }
                     }
                     break;
                 case "status":
+                    var arr = mgr.getSlotStatus();
+                    arr.forEach(element => {
+                      console.log(element);
+                    });
                     break;
                 default:
                     console.log("Invalid command!!");
             }
         }catch(e){
-            console.log("ERROR -> "+e.message);
+            console.log(e.message);
         }
     }
     
-    processArgs(args){
+    processCliArgs(args){
         const commandArgs = args.slice(2).reverse();
         this.processCommand(commandArgs.pop(), commandArgs);  
     }

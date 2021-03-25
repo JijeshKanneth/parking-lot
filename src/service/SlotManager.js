@@ -22,7 +22,6 @@ class SlotManager{
         this.MAX_SLOTS = noOfSlots;
         this.slots = new Array(noOfSlots).fill(null);
 
-        console.log(this.slots);
         return this.MAX_SLOTS;
 	}
     
@@ -53,7 +52,7 @@ class SlotManager{
         if (this.MAX_SLOTS > 0) {
             for (var index = 0; index < this.MAX_SLOTS; index++) {
                 var car = this.slots[index];
-                if (car.number === regNumber) {
+                if (car && car.number === regNumber) {
                     this.slots[index] = null;
                     return {
                         "car" : car,
@@ -66,6 +65,27 @@ class SlotManager{
             throw new Error('Invalid slot assignment!');
         }
         return null;
+	}
+    
+	/**
+	 * @param {} NIL
+	 * @description return the current status of slots
+	 */ 
+    getSlotStatus () {
+    	var arr = new Array();
+    	if (this.MAX_SLOTS > 0) {
+			arr.push('Slot No. Registration No.');
+
+        	for (var i = 0; i < this.slots.length; i++) {
+        		if (this.slots[i]) {
+        			arr.push((i + 1) + '  ' + this.slots[i].number);
+        		}
+        	}
+        	return arr;
+		}
+		else {
+			throw new Error('Slots are not available');
+		}
 	}
     
 	/**
