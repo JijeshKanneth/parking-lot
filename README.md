@@ -45,7 +45,7 @@ node src/index.js <path_to_file.txt>
 
 Users can interact with the Parking Lot system via a following simple set of commands which produce a specific output:
 
-- **create_parking_lot**: `create_parking_lot 6` will create a parking lot with 6 slots.
+- **create_parking_lot < NUMBER OF SLOTs >**: `create_parking_lot 6` will create a parking lot with 6 slots.
 
 - **park < REGISTRATION NUMBER > < COLOR >**: `park KA-01-HH-1234 White` will allocate the nearest slot from entry gate.
 
