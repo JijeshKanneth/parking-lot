@@ -2,6 +2,10 @@ var ParkinglotManager = require('./ParkinglotManager.js'),
     mgr = new ParkinglotManager();
 var Car = require('../domain-object/Car.js');
 
+/**
+ * @description processes the commands passed either from CLI or from direct method invocation
+ * @author Jijesh Kanneth
+ */
 class CommandHandler{
 	constructor (args) {
         if(args){
