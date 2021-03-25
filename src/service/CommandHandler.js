@@ -21,7 +21,7 @@ class CommandHandler{
                     }
                     break;
                 case "park":
-                    const regNumber = params.pop();
+                    var regNumber = params.pop();
                     const color = params.pop();
                     if(regNumber && color){
                         const car = new Car(regNumber, color); 
@@ -31,6 +31,17 @@ class CommandHandler{
                     }
                     break;
                 case "leave":
+                    var regNumber = params.pop();
+                    const hours = params.pop();
+                    if(regNumber && hours){
+                        var status = mgr.leaveCar(regNumber);
+                        if(status && status.car){
+                            var charge = mgr.calculateParkingCharge(hours);
+                            console.log("Registration number "+ status.car.number+" with Slot Number "+status.slot+" is free with Charge "+charge);
+                        }else{
+                            console.log("Invalid parking info!");
+                        }
+                    }
                     break;
                 case "status":
                     break;

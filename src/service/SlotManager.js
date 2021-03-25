@@ -28,7 +28,7 @@ class SlotManager{
     
 	/**
 	 *
-	 * @param {car} car object 
+	 * @param {object} car object 
 	 * @description check if slot available and assign car object to slot
 	 * It throws an error if zero or negative input is provided
 	 */    
@@ -44,6 +44,38 @@ class SlotManager{
         }
         return slotIndex + 1; //add 1 to index to start by 1
  	}
+    
+	/**
+	 * @param {string} registration
+	 * @description remove the slot used by particular car
+	 */
+    leaveCar(regNumber) {
+		if (this.MAX_SLOTS > 0) {
+		    for (var index = 0; index < this.MAX_SLOTS; index++) {
+                var car = this.slots[index];
+				if (car.number === regNumber) {
+					this.slots[index] = null;
+					return {
+                        "car" : car,
+                        "slot" : (index + 1)
+                    };
+				}
+			}
+		}
+		else {
+			throw new Error('Invalid slot assignment!');
+		}
+        return null;
+	}
+    
+	/**
+	 * @param {number} hours
+	 * @description calculate the charges
+	 */ 
+    calculateParkingCharge(hours){
+        if(hours <= 2) return 10;
+        return (hours - 1) * 10;
+    }
     
     findNearestAvailableSlot(){
         //Assuming that the nearest slot is in numberical order 
