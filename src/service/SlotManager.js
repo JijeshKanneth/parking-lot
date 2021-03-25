@@ -98,7 +98,7 @@ class SlotManager{
     }
     
     findNearestAvailableSlot(){
-        //Assuming that the nearest slot is in numberical order 
+        //Assuming that the nearest slot is in numerical order 
         //Get the first empty slot 
         return this.slots.indexOf(null);
     }
