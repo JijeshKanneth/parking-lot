@@ -1,7 +1,7 @@
 var Car = require('../domain-object/Car.js'); 
 
 /**
- * @description SlotManager service to enable user to interact with parking lot
+ * @description SlotManager service to manage slot operations
  * @author Jijesh Kanneth
  */
 class SlotManager{
@@ -27,37 +27,43 @@ class SlotManager{
     
 	/**
 	 *
-	 * @param {object} car object 
-	 * @description check if slot available and assign car object to slot
+	 * @param {object}  object 
+	 * @description check if slot available and assign object to slot
 	 * It throws an error if zero or negative input is provided
 	 */    
-    parkCar (car) {
+    assignSlot (obj) {
         if(this.MAX_SLOTS == 0){
-            throw new Error('Slots are not available!');
+            var e = new Error('Slots are not available!');
+            e.code = 1;
+            throw e;
         }
         var slotIndex = this.findNearestAvailableSlot();
         if(slotIndex < 0){
-            throw new Error('Sorry, parking lot is full');
+            var e = new Error('Sorry, slot is full');
+            e.code = 2;
+            throw e;
         }else{
-            this.slots[slotIndex] = car;
+            this.slots[slotIndex] = obj;
         }
         return slotIndex + 1; //add 1 to index to start by 1
  	}
     
 	/**
 	 * @param {string} registration
-	 * @description remove the slot used by particular car
+	 * @description remove the slot if the condition function returns true
 	 */
-    leaveCar(regNumber) {
+    emptySlot(conditionFn) {
         if (this.MAX_SLOTS > 0) {
             for (var index = 0; index < this.MAX_SLOTS; index++) {
-                var car = this.slots[index];
-                if (car && car.number === regNumber) {
-                    this.slots[index] = null;
-                    return {
-                        "car" : car,
-                        "slot" : (index + 1)
-                    };
+                var obj = this.slots[index];
+                if(conditionFn){
+                    if(conditionFn(obj) == true){
+                        this.slots[index] = null;
+                        return {
+                            "value" : obj,
+                            "slot" : (index + 1)
+                        };
+                    }
                 }
             }
         }
@@ -71,31 +77,20 @@ class SlotManager{
 	 * @param {} NIL
 	 * @description return the current status of slots
 	 */ 
-    getSlotStatus () {
-    	var arr = new Array();
+    getSlotStatus (formatFn) {
     	if (this.MAX_SLOTS > 0) {
-			arr.push('Slot No. Registration No.');
-
         	for (var i = 0; i < this.slots.length; i++) {
         		if (this.slots[i]) {
-        			arr.push((i + 1) + '  ' + this.slots[i].number);
+                    if(formatFn){
+                        formatFn((i + 1), this.slots[i]);
+                    }
         		}
         	}
-        	return arr;
 		}
 		else {
 			throw new Error('Slots are not available');
 		}
 	}
-    
-	/**
-	 * @param {number} hours
-	 * @description calculate the charges
-	 */ 
-    calculateParkingCharge(hours){
-        if(hours <= 2) return 10;
-        return (hours - 1) * 10;
-    }
     
     findNearestAvailableSlot(){
         //Assuming that the nearest slot is in numerical order 
