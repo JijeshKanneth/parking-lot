@@ -1,0 +1,11 @@
+{
+  "name": "parking-slot",
+  "version": "1.0.0",
+  "description": "An application to allocate parking slots for cars",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jijesh Kanneth",
+  "license": "ISC"
+}
