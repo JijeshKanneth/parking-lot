@@ -8,7 +8,7 @@ const command = commandArgs.pop();
 try{
     switch(command){
         case "create_parking_lot":
-            const slotSize = parseInt(commandArgs.pop());
+            const slotSize = parseInt(commandArgs.pop()); //get param value
             if(isNaN(slotSize)){
                 throw new Error("Invalid parameter!");
             }else{
