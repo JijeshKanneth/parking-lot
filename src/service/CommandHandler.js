@@ -9,6 +9,10 @@ class CommandHandler{
         }
     }
     
+	/**
+	 * @param {string, array} user command and params
+	 * @description process the user command 
+	 */
     processCommand(command, params){
         try{
             switch(command){
@@ -44,6 +48,11 @@ class CommandHandler{
         }
     }
     
+	/**
+	 *
+	 * @param {array} user inputs - Command LIne
+	 * @description retrieve and process args
+	 */
     processCliArgs(args){
         const commandArgs = args.slice(2).reverse();
         this.processCommand(commandArgs.pop(), commandArgs);  
