@@ -3,10 +3,9 @@ const assert = require('chai').assert,
       ParkinglotManager = require('../src/service/ParkinglotManager.js');
 
 var commands = [],
-      totalParkings,
       mgr = new ParkinglotManager();
 
-// test specs for unit testing the methods in CommandHandler class
+// testing scenarios for unit testing the methods in CommandHandler class
 describe('Test for reading input test data', function () {
   it('reading input.txt', function (done) {
     fs.readFile('./data/input.txt', 'utf-8', function (err, data) {
@@ -33,7 +32,7 @@ describe('Testing Functions in ParkinglotManager class', function () {
     var command = commands[0].split(' ').reverse();
     assert.equal(command.pop(), 'create_parking_lot');
 
-    totalParkings = mgr.createParkinglot(command);
+    var totalParkings = mgr.createParkinglot(command);
     assert.equal(totalParkings, 6);
     done();
   });
