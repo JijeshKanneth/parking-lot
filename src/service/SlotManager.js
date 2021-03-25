@@ -50,21 +50,21 @@ class SlotManager{
 	 * @description remove the slot used by particular car
 	 */
     leaveCar(regNumber) {
-		if (this.MAX_SLOTS > 0) {
-		    for (var index = 0; index < this.MAX_SLOTS; index++) {
+        if (this.MAX_SLOTS > 0) {
+            for (var index = 0; index < this.MAX_SLOTS; index++) {
                 var car = this.slots[index];
-				if (car.number === regNumber) {
-					this.slots[index] = null;
-					return {
+                if (car.number === regNumber) {
+                    this.slots[index] = null;
+                    return {
                         "car" : car,
                         "slot" : (index + 1)
                     };
-				}
-			}
-		}
-		else {
-			throw new Error('Invalid slot assignment!');
-		}
+                }
+            }
+        }
+        else {
+            throw new Error('Invalid slot assignment!');
+        }
         return null;
 	}
     
