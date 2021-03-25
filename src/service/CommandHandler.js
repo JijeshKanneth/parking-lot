@@ -1,7 +1,8 @@
 var SlotManager = require('./SlotManager.js'),
     mgr = new SlotManager();
+var Car = require('../domain-object/Car.js');
 
-class CliHandler{
+class CommandHandler{
 	constructor (args) {
         if(args){
             this.processArgs(args);
@@ -20,6 +21,14 @@ class CliHandler{
                     }
                     break;
                 case "park":
+                    const regNumber = params.pop();
+                    const color = params.pop();
+                    if(regNumber && color){
+                        const car = new Car(regNumber, color); 
+                        console.log("Allocated slot number: "+mgr.parkCar(car));
+                    }else{
+                        throw new Error("Invalid parameter!");
+                    }
                     break;
                 case "leave":
                     break;
@@ -38,4 +47,4 @@ class CliHandler{
         this.processCommand(commandArgs.pop(), commandArgs);  
     }
 }
-module.exports = CliHandler;
+module.exports = CommandHandler;
